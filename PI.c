@@ -55,40 +55,37 @@ void main(void)
          if(FlagEstadoPuerto==1)
          {
             set_adc_channel(0);
-            if(TiempoEsperaADC>=5&&FlagADC==1)
+            if(TiempoEsperaADC>=200&&FlagADC==1)
             {
                ValorConversion=UltimoValorADC*ValorConversionTemperatura;
                printf("Temperatura %f\r",ValorConversion);
                FlagADC=0;
                TiempoEsperaADC=0;
                FlagEstadoPuerto=2;
-               FlagSerial=0;
             }
          }
          if(FlagEstadoPuerto==2)
          {
             set_adc_channel(1);
-            if(TiempoEsperaADC>=5&&FlagADC==1)
+            if(TiempoEsperaADC>=200&&FlagADC==1)
             {
                ValorConversion=(UltimoValorADC*ValorConversionPresionAtmosferica)+898;
                printf("Presion Atmosferica %f\r",ValorConversion);
                FlagADC=0;
                TiempoEsperaADC=0;
                FlagEstadoPuerto=3;
-               FlagSerial=0;
             }
          }
          if(FlagEstadoPuerto==3)
          {
             set_adc_channel(2);
-            if(TiempoEsperaADC>=5&&FlagADC==1)
+            if(TiempoEsperaADC>=200&&FlagADC==1)
             {
                ValorConversion=UltimoValorADC*ValorConversionHumedadRelativa;
                printf("Humedad Relativa %f\r",ValorConversion);
                FlagADC=0;
                TiempoEsperaADC=0;
                FlagEstadoPuerto=1;
-               FlagSerial=0;
             }
          }
          read_adc(ADC_START_ONLY);
