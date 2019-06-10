@@ -18,7 +18,7 @@
 #define  ValorConversionPresionAtmosferica .1124144673
 #define  ValorConversionHumedadRelativa .09775171065
 
-INT TiempoEsperaADC=0, FlagADC=0, FlagEstadoPuerto=1, FlagSerial=0;
+int TiempoEsperaADC=0, FlagADC=0, FlagEstadoPuerto=1,FlagSerial=0;
 long UltimoValorADC=0;
 float ValorConversion=0;
 
@@ -52,7 +52,7 @@ void main(void)
    setup_adc(adc_clock_internal);
    while(TRUE)
    {
-         if(FlagEstadoPuerto==1)
+         if(FlagEstadoPuerto==1&&FlagSerial==1)
          {
             set_adc_channel(0);
             if(TiempoEsperaADC>=200&&FlagADC==1)
@@ -62,9 +62,10 @@ void main(void)
                FlagADC=0;
                TiempoEsperaADC=0;
                FlagEstadoPuerto=2;
+               FlagSerial=0;
             }
          }
-         if(FlagEstadoPuerto==2)
+         if(FlagEstadoPuerto==2&&FlagSerial==1)
          {
             set_adc_channel(1);
             if(TiempoEsperaADC>=200&&FlagADC==1)
@@ -74,9 +75,10 @@ void main(void)
                FlagADC=0;
                TiempoEsperaADC=0;
                FlagEstadoPuerto=3;
+               FlagSerial=0;
             }
          }
-         if(FlagEstadoPuerto==3)
+         if(FlagEstadoPuerto==3&&FlagSerial==1)
          {
             set_adc_channel(2);
             if(TiempoEsperaADC>=200&&FlagADC==1)
@@ -86,6 +88,7 @@ void main(void)
                FlagADC=0;
                TiempoEsperaADC=0;
                FlagEstadoPuerto=1;
+               FlagSerial=0;
             }
          }
          read_adc(ADC_START_ONLY);
